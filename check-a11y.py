@@ -3,6 +3,7 @@ import os
 import glob
 import platform
 import subprocess
+import time
 
 print("Checking /srv for a11y issues...")
 
@@ -16,6 +17,8 @@ def get_all_files_with_ext(directory, extension):
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     html_files = get_all_files_with_ext("/srv", ".html")
     for html_file in html_files:
         subprocess.call(["pa11y", "--config", "/tmp/pa11y.config.json", html_file])
+    print("--- {} seconds ---".format(time.time() - start_time))
